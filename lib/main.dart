@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:t4f_challenge_app/repository/themes.dart';
 import 'package:t4f_challenge_app/view/screen/home_screen.dart';
 import 'package:t4f_challenge_app/viewmodel/home_view_model.dart';
 
@@ -17,6 +18,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return MaterialApp(
+      home: const HomeScreen(),
+      theme: context.watch<HomeViewModel>().theme.value,
+    );
   }
 }
