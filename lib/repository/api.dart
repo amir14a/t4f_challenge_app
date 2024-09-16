@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:t4f_challenge_app/model/item_model.dart';
 import 'package:t4f_challenge_app/repository/consts.dart';
 
-abstract class AppAPI {
+abstract class AppApi {
   static final dio = Dio();
 
   static Future<List<ItemModel>> getItems() async {

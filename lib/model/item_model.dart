@@ -21,13 +21,13 @@ class ItemModel {
     type = json['type'];
     title = json['title'];
     image = json['image'];
-    price = json['price']?.toDouble();
+    price = double.parse(json['price']);
     city = json['city'];
     presenter = json['presenter'];
-    runtime = json['runtime']?.toInt();
-    rate = json['rate']?.toInt();
+    runtime = int.parse(json['runtime']);
+    rate = int.parse(json['rate']);
     url = json['url'];
-    id = json['id']?.toInt();
+    id = int.parse(json['id']);
   }
 
   String? type;

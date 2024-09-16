@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:t4f_challenge_app/repository/themes.dart';
 import 'package:t4f_challenge_app/view/screen/home_screen.dart';
 import 'package:t4f_challenge_app/viewmodel/home_view_model.dart';
 
@@ -20,6 +21,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const HomeScreen(),
+      scrollBehavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.trackpad,
+      }),
       theme: context.watch<HomeViewModel>().theme.value,
     );
   }
