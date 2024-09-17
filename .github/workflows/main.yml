@@ -1,0 +1,19 @@
+name: Deploying apps
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-web-app:
+    name: 🌎 Deploying web app to github pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/flutter-gh-pages@v8
+        with:
+          workingDir: .
+          webRenderer: canvaskit
+          targetBranch: web-export
+          baseHref: /t4f_challenge_app/
