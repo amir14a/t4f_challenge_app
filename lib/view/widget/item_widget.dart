@@ -84,7 +84,7 @@ class ItemWidget extends StatelessWidget {
                             color: Colors.green,
                           ),
                           Text(
-                            '${model.price} \$',
+                            '\$${model.price}',
                             style: const TextStyle(fontSize: 14, color: Colors.green),
                           )
                         ],

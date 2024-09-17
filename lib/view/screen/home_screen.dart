@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:t4f_challenge_app/view/screen/item_details_screen.dart';
 import 'package:t4f_challenge_app/view/widget/item_widget.dart';
 import 'package:t4f_challenge_app/view/widget/network_widget.dart';
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'List of latest items:',
+                          'List of latest products:',
                           style: Theme.of(context).textTheme.titleLarge,
                           textAlign: TextAlign.start,
                         ),
@@ -96,7 +97,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        loadingBuilder: () => const Center(child: CircularProgressIndicator()),
+                        loadingBuilder: () => Shimmer.fromColors(
+                          baseColor: Colors.grey.withOpacity(.5),
+                          highlightColor: Colors.grey,
+                          period: kThemeAnimationDuration * 4,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 268,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: List.filled(
+                                    4,
+                                    Container(
+                                      width: 300,
+                                      margin: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         failedBuilder: () => Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

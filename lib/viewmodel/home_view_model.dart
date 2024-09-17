@@ -31,6 +31,7 @@ class HomeViewModel extends ChangeNotifier {
 
   getItemsFromApi() async {
     requestState.value = AppApiRequestState.SENDING;
+    await Future.delayed(Duration(seconds: 4));
     try {
       var list = await AppApi.getItems();
       list.shuffle(); // Asked in project infos to load items in random sort

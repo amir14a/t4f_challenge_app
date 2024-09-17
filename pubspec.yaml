@@ -20,6 +20,9 @@ dependencies:
   # data
   shared_preferences: ^2.3.2
 
+  # UI
+  shimmer: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

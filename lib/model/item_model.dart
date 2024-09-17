@@ -61,7 +61,7 @@ class ItemModel {
       ('ID', id.toString()),
       ('Type', type),
       ('Title', title),
-      ('Price', '$price \$'),
+      ('Price', '\$$price'),
       ('City', city),
       ('Presenter', presenter),
       ('Runtime', runtime.toString()),
