@@ -17,3 +17,24 @@ jobs:
           webRenderer: canvaskit
           targetBranch: web-export
           baseHref: /t4f_challenge_app/
+
+  build-apk-app:
+    name: 🤖 Deploying android app to github releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+      - run: flutter pub get
+      - run: flutter build apk --release --target-platform android-arm --split-per-abi
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          tag: AutomaticReleaseFromCommit-${{ github.event.head_commit.id }}
+          overwrite: true
+          body: "${{ github.event.head_commit.message }}"
