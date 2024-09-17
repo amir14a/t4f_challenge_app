@@ -55,7 +55,11 @@ I use these flutter packages in this application:
 ## Video
 
 This is a short video that shows functionality of this application:
-https://github.com/user-attachments/assets/43d1e086-0055-4152-8451-018f54881740
+
+
+https://github.com/user-attachments/assets/335777c1-26b7-4ca8-a115-8cbc187de6bb
+
+
 
 ## Thanks
 
@@ -64,5 +68,6 @@ or other things, I glad to answer:
 
 - [a.abbasj@yahoo.com](mailto:a.abbasj@yahoo.com)
 - [@amir_a14 on Telegram](https://t.me/amir_a14)
-  Sincerely,
+
+Sincerely,
   AmirAbbas Jannatian
