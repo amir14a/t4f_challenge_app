@@ -22,6 +22,7 @@ dependencies:
 
   # UI
   shimmer: ^3.0.0
+  animated_theme_switcher: ^2.0.10
 
 dev_dependencies:
   flutter_test:

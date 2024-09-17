@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:t4f_challenge_app/model/item_model.dart';
@@ -9,29 +10,27 @@ import 'package:t4f_challenge_app/repository/themes.dart';
 class HomeViewModel extends ChangeNotifier {
   ValueNotifier<List<ItemModel>?> items = ValueNotifier(null);
   ValueNotifier<AppApiRequestState> requestState = ValueNotifier(AppApiRequestState.NOT_SENT_YET);
-  ValueNotifier<ThemeData> theme = ValueNotifier(appLightTheme);
+  ThemeData theme = appLightTheme;
   ScrollController listController = ScrollController();
   Key listKey = UniqueKey();
 
   HomeViewModel() {
     items.addListener(notifyListeners);
     requestState.addListener(notifyListeners);
-    theme.addListener(notifyListeners);
   }
 
   @override
   void dispose() {
     items.dispose();
     requestState.dispose();
-    theme.dispose();
     super.dispose();
   }
 
-  bool get isDarkMode => theme.value == appDarkTheme;
+  bool get isDarkMode => theme == appDarkTheme;
 
   getItemsFromApi() async {
     requestState.value = AppApiRequestState.SENDING;
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 1)); // For view loading animation longer
     try {
       var list = await AppApi.getItems();
       list.shuffle(); // Asked in project infos to load items in random sort
@@ -43,12 +42,14 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  toggleDarkMode() {
-    if (theme.value == appLightTheme) {
-      theme.value = appDarkTheme;
+  toggleDarkMode(c) {
+    if (theme == appLightTheme) {
+      theme = appDarkTheme;
     } else {
-      theme.value = appLightTheme;
+      theme = appLightTheme;
     }
+    ThemeSwitcher.of(c).changeTheme(theme: theme, isReversed: false // default: false
+        );
   }
 
   saveLastVisitedItem(int itemId) async {
