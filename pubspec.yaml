@@ -10,10 +10,35 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # state management
+  provider: ^6.1.2
+
+  # networking
+  dio: ^5.7.0
+  cached_network_image: ^3.4.1
+
+  # data
+  shared_preferences: ^2.3.2
+
+  # UI
+  shimmer: ^3.0.0
+  animated_theme_switcher: ^2.0.10
+
+  # other
+  url_launcher: ^6.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test:
   flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Ubuntu-Bold.ttf
+          weight: 600
