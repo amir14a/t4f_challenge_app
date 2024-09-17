@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:t4f_challenge_app/model/item_model.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:t4f_challenge_app/repository/colors.dart';
 import 'package:t4f_challenge_app/viewmodel/home_view_model.dart';
 
@@ -21,17 +21,21 @@ class ItemWidget extends StatelessWidget {
             height: 256,
             child: Stack(
               children: [
-                Container(
-                  width: 300,
-                  height: 256,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-                  child: CachedNetworkImage(
-                    imageUrl: "${model.image}?id=${model.id}",
+                Hero(
+                  tag: "${model.id}",
+                  child: Container(
                     width: 300,
                     height: 256,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+                    child: CachedNetworkImage(
+                      imageUrl: "${model.image}?id=${model.id}",
+                      width: 300,
+                      height: 256,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      placeholder: (context, url) => const Center(child: Icon(Icons.image, size: 48)),
+                    ),
                   ),
                 ),
                 Positioned.fill(

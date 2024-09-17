@@ -55,4 +55,18 @@ class ItemModel {
     map['id'] = id;
     return map;
   }
+
+  List<(String, String?)> get details {
+    return [
+      ('ID', id.toString()),
+      ('Type', type),
+      ('Title', title),
+      ('Price', '$price \$'),
+      ('City', city),
+      ('Presenter', presenter),
+      ('Runtime', runtime.toString()),
+      ('Rate', rate.toString()),
+      ('URL', url),
+    ];
+  }
 }

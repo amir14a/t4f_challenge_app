@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:t4f_challenge_app/main.dart';
-import 'package:t4f_challenge_app/repository/themes.dart';
+import 'package:t4f_challenge_app/view/screen/item_details_screen.dart';
 import 'package:t4f_challenge_app/view/widget/item_widget.dart';
 import 'package:t4f_challenge_app/view/widget/network_widget.dart';
 import 'package:t4f_challenge_app/viewmodel/home_view_model.dart';
@@ -44,45 +44,76 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: () => vm.getItemsFromApi(),
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'List of latest items:',
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AppNetworkWidget(
-                  state: vm.requestState,
-                  successBuilder: () => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: vm.items.value!.length,
-                    itemBuilder: (BuildContext context, int index) => ItemWidget(
-                      model: vm.items.value![index],
-                      onTap: () {},
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'List of latest items:',
+                          style: Theme.of(context).textTheme.titleLarge,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
                     ),
-                  ),
-                  loadingBuilder: () => const Center(child: CircularProgressIndicator()),
-                  failedBuilder: () => Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.wifi_off, size: 120),
-                        const Text('Please check your network...'),
-                        IconButton(
-                          onPressed: vm.getItemsFromApi,
-                          icon: const Icon(Icons.refresh),
-                        )
-                      ],
+                    Expanded(
+                      child: AppNetworkWidget(
+                        state: vm.requestState,
+                        successBuilder: () => AnimatedSwitcher(
+                          duration: kThemeAnimationDuration * 2,
+                          transitionBuilder: (child, anim) {
+                            return SlideTransition(
+                              position:
+                                  anim.drive(Tween<Offset>(begin: const Offset(-.4, 0), end: const Offset(0, 0))),
+                              child: FadeTransition(
+                                opacity: anim,
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: ListView.builder(
+                            key: vm.listKey,
+                            scrollDirection: Axis.horizontal,
+                            controller: vm.listController,
+                            itemCount: vm.items.value!.length,
+                            itemBuilder: (BuildContext context, int index) => ItemWidget(
+                              key: Key(vm.items.value![index].id.toString()),
+                              model: vm.items.value![index],
+                              onTap: () async {
+                                await Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) => ItemDetailsScreen(model: vm.items.value![index]),
+                                  )..completed.then((c) {
+                                      //When page transition animations end
+                                      vm.saveLastVisitedItem(vm.items.value![index].id!);
+                                    }),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        loadingBuilder: () => const Center(child: CircularProgressIndicator()),
+                        failedBuilder: () => Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.wifi_off, size: 120),
+                              const Text('Please check your network...'),
+                              IconButton(
+                                onPressed: vm.getItemsFromApi,
+                                icon: const Icon(Icons.refresh),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
