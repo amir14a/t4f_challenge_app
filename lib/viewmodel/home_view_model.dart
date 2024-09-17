@@ -32,11 +32,12 @@ class HomeViewModel extends ChangeNotifier {
   getItemsFromApi() async {
     requestState.value = AppApiRequestState.SENDING;
     try {
-      items.value = await AppApi.getItems();
+      var list = await AppApi.getItems();
+      list.shuffle(); // Asked in project infos to load items in random sort
+      items.value = list;
       requestState.value = AppApiRequestState.SUCCESS;
       await reorderCurrentList();
     } catch (e) {
-      print(e);
       requestState.value = AppApiRequestState.FAILED;
     }
   }
