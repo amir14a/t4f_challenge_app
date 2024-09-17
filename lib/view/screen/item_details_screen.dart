@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:t4f_challenge_app/model/item_model.dart';
 import 'package:t4f_challenge_app/repository/colors.dart';
 import 'package:t4f_challenge_app/viewmodel/home_view_model.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
   final ItemModel model;
@@ -125,10 +126,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: widget.model.details[i].$1 == 'URL'
                                   ? InkWell(
-                                      onTap: () {},
+                                      onTap: () => launchUrlString(widget.model.details[i].$2!),
                                       child: Text(
                                         '${widget.model.details[i].$2}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                           color: AppColors.linkTextColor,
                                           fontSize: 16,

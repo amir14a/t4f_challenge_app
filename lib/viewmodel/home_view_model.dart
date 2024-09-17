@@ -48,8 +48,7 @@ class HomeViewModel extends ChangeNotifier {
     } else {
       theme = appLightTheme;
     }
-    ThemeSwitcher.of(c).changeTheme(theme: theme, isReversed: false // default: false
-        );
+    ThemeSwitcher.of(c).changeTheme(theme: theme, isReversed: false);
   }
 
   saveLastVisitedItem(int itemId) async {

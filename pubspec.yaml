@@ -24,6 +24,9 @@ dependencies:
   shimmer: ^3.0.0
   animated_theme_switcher: ^2.0.10
 
+  # other
+  url_launcher: ^6.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
