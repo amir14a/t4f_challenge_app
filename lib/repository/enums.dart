@@ -1,3 +1,0 @@
-enum AppApiRequestState {
-  NOT_SENT_YET,SENDING,SUCCESS,FAILED
-}
