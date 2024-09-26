@@ -27,6 +27,7 @@ void main() {
   );
 
   testWidgets('Testing Item Widget', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 1920));
     await tester.pumpWidget(mockMainApp(child: ItemWidget(model: mockItem, onTap: () {})));
     expect(find.text(mockItem.title!), findsOneWidget);
     expect(find.text('\$${mockItem.price}'), findsOneWidget);
@@ -34,14 +35,16 @@ void main() {
   });
 
   testWidgets('Testing Details Screen', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 1920));
     await tester.pumpWidget(mockMainApp(child: ItemDetailsScreen(model: mockItem)));
+    await tester.pump();
     expect(find.text(mockItem.title!), findsNWidgets(2));
     expect(find.text('\$${mockItem.price}'), findsOneWidget);
     expect(find.text('${mockItem.image}'), findsNothing);
     expect(find.text('${mockItem.city}'), findsOneWidget);
     expect(find.text('${mockItem.type}'), findsOneWidget);
-    expect(find.text('Type:'), findsOneWidget);
-    expect(find.text('Price:'), findsOneWidget);
-    expect(find.text('City:'), findsNothing);
+    expect(find.text('Price: '), findsOneWidget);
+    expect(find.text('Type: '), findsOneWidget);
+    expect(find.text('City'), findsNothing);
   });
 }
